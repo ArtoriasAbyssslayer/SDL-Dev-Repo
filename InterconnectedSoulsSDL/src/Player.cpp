@@ -1,6 +1,5 @@
-#include "../include/headers/Player.h"
+#include <Player.h>
 #include <iostream>
-
 Player::Player(SDL_Renderer* renderer, const char* imagePath, int x, int y, int speed, int health, dir direction, int attackDamage){
     direction = NULLDIR;
     SDL_Surface* surface = SDL_LoadBMP(imagePath);
@@ -40,12 +39,12 @@ Player::~Player() {
 
 bool Player::checkCollision(CapsuleHitbox a, CapsuleHitbox b) {
     // Calculate squared distance between centers
-    float dx = a.x - b.x;
-    float dy = a.y - b.y;
-    float distance = (dx * dx) + (dy * dy);
+    int dx = a.x - b.x;
+    int dy = a.y - b.y;
+    int distance = (dx * dx) + (dy * dy);
 
     // Calculate squared sum of radii
-    float radii = a.radius + b.radius;
+    int radii = a.radius + b.radius;
     radii *= radii;
 
     // If the distance between the centers is less than the sum of the radii, a collision has occurred
@@ -60,25 +59,25 @@ void Player::draw(SDL_Renderer* renderer) {
     SDL_Rect destRect = { x, y, 10, 20 }; // Assuming player size is 10x20
     SDL_RenderCopy(renderer, texture, nullptr, &destRect);
 }
-void Player::move(int dx, int dy) {
-    // Update player position by dx and dy
-    x += dx;
-    y += dy;
+
+void Player::move(int x, int y, int speed) {
+	x += speed;
+	y += speed;
 }
-void Player::update() {
+void Player::update(Player p, dir direction, int speed) {
     // Update player position based on direction
     switch (direction) {
     case UP:
-        move(0, -speed);
+        move(p.getX(), p.getY(), -speed);
         break;
     case DOWN:
-        move(0, speed);
+        move(p.getX(), p.getY(), speed);
         break;
     case LEFT:
-        move(-speed, 0);
+        move(p.getX(), p.getY(), -speed);
         break;
     case RIGHT:
-        move(speed, 0);
+        move(p.getX(), p.getY(), speed);
         break;
     default:
         break;
