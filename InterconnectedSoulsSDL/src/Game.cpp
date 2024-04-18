@@ -1,6 +1,4 @@
-#include "../include/headers/Game.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <Game.h>
 #include <cstdlib>
 #include <cmath>
 SDL_Texture* playerSprite;
@@ -51,7 +49,7 @@ void Game::handle_events()
 	case SDL_QUIT:
 		game_over = true;
 		break;
-	defaut:
+	default:
 		printf("Game running, Event not handled\n");
 		break;
 
