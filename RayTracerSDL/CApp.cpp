@@ -18,6 +18,17 @@ bool CApp::OnInit()
   pWindow = SDL_CreateWindow("qbRayTracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,1280,720,SDL_WINDOW_SHOWN);
   if(pWindow != NULL){
     pRenderer = SDL_CreateRenderer(pWindow, -1,0);
+    //Initialize the image
+    m_image.Initialize(1280,720, pRenderer);
+
+    //Create some color variations
+    for (int i = 0; i < 1280; i++) {
+      for (int j = 0; j < 720; j++) {
+        double red = (static_cast<double>(i)/1280) * 255;
+        double green = (static_cast<double>(j)/720) * 255;
+        m_image.SetPixel(i,j, red,green,0.0);
+      }
+    }
   }else {
     return false;
   }
@@ -58,6 +69,9 @@ void CApp::OnRender(){
   //Set the background to white color
   SDL_SetRenderDrawColor(pRenderer,255,255,255,255);
   SDL_RenderClear(pRenderer);
+
+  //Display image
+  m_image.Display();
   SDL_RenderPresent(pRenderer);
 
 }

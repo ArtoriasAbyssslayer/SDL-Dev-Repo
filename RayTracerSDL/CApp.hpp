@@ -2,6 +2,8 @@
 #define CAPP_H
 
 #include <SDL2/SDL.h>
+#include "./qbImage.hpp"
+
 class CApp {
 public:
   CApp();
@@ -15,6 +17,8 @@ public:
   SDL_Renderer *pRenderer;
 private:
   bool isRunning;
+  //An instance of qbImage class to store the qbImage
+  qbImage m_image;
   
 };
 
